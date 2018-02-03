@@ -11,24 +11,25 @@
 
 class FusionEKF {
 public:
+
   /**
-  * Constructor.
-  */
+   * Constructor.
+   */
   FusionEKF();
 
   /**
-  * Destructor.
-  */
+   * Destructor.
+   */
   virtual ~FusionEKF();
 
   /**
-  * Run the whole flow of the Kalman Filter from here.
-  */
-  void ProcessMeasurement(const MeasurementPackage &measurement_pack);
+   * Run the whole flow of the Kalman Filter from here.
+   */
+  void processMeasurement(const MeasurementPackage& measurement_pack);
 
   /**
-  * Kalman Filter update and prediction math lives in here.
-  */
+   * Kalman Filter update and prediction math lives in here.
+   */
   KalmanFilter ekf_;
 
 private:
@@ -39,11 +40,18 @@ private:
   long long previous_timestamp_;
 
   // tool object used to compute Jacobian and RMSE
-  Tools tools;
+  Tools tools_;
+
   Eigen::MatrixXd R_laser_;
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;
   Eigen::MatrixXd Hj_;
+
+  Eigen::MatrixXd F_;
+  Eigen::MatrixXd P_;
+  Eigen::MatrixXd Q_;
+  float noise_ax_;
+  float noise_ay_;
 };
 
 #endif /* FusionEKF_H_ */
